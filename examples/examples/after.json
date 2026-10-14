@@ -1,0 +1,35 @@
+{
+  "catalogVersion": "synthetic-after",
+  "dateReleased": "2099-01-02T12:00:00Z",
+  "count": 2,
+  "vulnerabilities": [
+    {
+      "cveID": "CVE-2099-0001",
+      "vendorProject": "Example Vendor",
+      "product": "Synthetic Product",
+      "vulnerabilityName": "Synthetic example only",
+      "dateAdded": "2099-01-01",
+      "dueDate": "2099-02-01",
+      "shortDescription": "Not a real vulnerability",
+      "requiredAction": "Synthetic example only; no real action",
+      "notes": "",
+      "extension": {
+        "label": "after"
+      }
+    },
+    {
+      "cveID": "CVE-2099-0003",
+      "vendorProject": "Example Vendor",
+      "product": "Synthetic Product",
+      "vulnerabilityName": "Synthetic example only",
+      "dateAdded": "2099-01-01",
+      "dueDate": "2099-01-31",
+      "shortDescription": "Not a real vulnerability",
+      "requiredAction": "Synthetic example only; no real action",
+      "notes": "",
+      "extension": {
+        "label": "before"
+      }
+    }
+  ]
+}
