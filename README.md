@@ -43,6 +43,9 @@ JSON is the default. `--format markdown` produces a human-readable review with c
 - Fields unknown to this version are preserved and compared. Object key order is ignored; array order is significant.
 - Catalog-level metadata changes are reported separately, even with a vendor filter.
 - `--vendor` is an exact, case-insensitive match on `vendorProject`, against either snapshot. It is not fuzzy matching or installed-product detection. Omitting it compares the full supplied catalog.
+
+Whitespace is significant in exact vendor filters. Copy the full `vendorProject` value from your supplied snapshots, including any trailing space, or omit `--vendor` for a full-catalog review. For example, `--vendor 'Array Networks '` includes a trailing space. A zero-match report does not mean the vendor has no KEV entries. Do not trim or edit source files to force a match. CISA's historical [issue #8](https://github.com/cisagov/kev-data/issues/8) records a trailing-space value and an upstream correction report. This is a historical source-quality example, not a claim that the current feed has that error.
+
 - Zero record changes is not proof that no vulnerability exists. A later feed can retain the same records.
 - Dates and source actions are copied as data. CISA due dates are not universal customer deadlines. Follow authoritative vendor guidance and applicable rules for your organization.
 
