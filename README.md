@@ -17,12 +17,17 @@ Python 3.10 or newer. Standard library only. No account or installation needed.
 ```sh
 python3 kev_diff.py examples/before.json examples/after.json > review.json
 python3 kev_diff.py examples/before.json examples/after.json --vendor 'Example Vendor' > vendor-review.json
+python3 kev_diff.py examples/before.json examples/after.json --format markdown > review.md
 python3 -m unittest discover -s tests -v
 ```
 
 The example catalog is **synthetic**, not a current vulnerability feed. It shows one addition, one edited record and one removal. The edited record changes a due date and an unknown extension field. Nothing runs in the background.
 
 For real data, download and retain successive JSON snapshots yourself from the [CISA catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) or its [official mirror](https://github.com/cisagov/kev-data). Check provenance and download dates. Pass the earlier snapshot first. This tool does not fetch sources, establish authenticity, tell whether a catalog is complete, or claim to be current. File SHA-256 values support reproducibility, not authentication.
+
+## Reading the output
+
+JSON is the default. `--format markdown` produces a human-readable review with counts, snapshot provenance, limits, metadata changes and each complete before/after record for matching changes. It does not add analysis or change the comparison. Source values stay in JSON code blocks; a dynamically sized fence prevents embedded backticks from escaping those blocks in ordinary Markdown renderers, not every viewer. Open the Markdown in a viewer you trust. Review reports before sharing: full before/after records for matching changes, metadata changes and vendor filters are included. Keep `markdown_report.py` alongside `kev_diff.py` for this optional format.
 
 ## What the report means
 
@@ -45,7 +50,7 @@ All file processing is local. No network requests, telemetry, storage account, a
 
 ## Verification
 
-37 synthetic tests pass. On October 14, 2026, the prototype loaded the official mirror snapshot with catalogVersion `2026.10.13`, 1,741 entries and dateReleased `2026-10-13T19:10:43.6568Z`. Comparing that snapshot to itself returned zero record changes. This proves input compatibility with that one snapshot only, not authenticity, exposure, or correct handling of two successive real feeds. Its SHA-256 was `136904f12e4c6762e526352e3a67ed7b28cd21b4d82bed9c91719ff2e94f2f28`.
+43 synthetic tests pass. On October 14, 2026, the prototype loaded the official mirror snapshot with catalogVersion `2026.10.13`, 1,741 entries and dateReleased `2026-10-13T19:10:43.6568Z`. Comparing that snapshot to itself returned zero record changes. This proves input compatibility with that one snapshot only, not authenticity, exposure, or correct handling of two successive real feeds. Its SHA-256 was `136904f12e4c6762e526352e3a67ed7b28cd21b4d82bed9c91719ff2e94f2f28`.
 
 ## Alternatives and business status
 
