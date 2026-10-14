@@ -4,6 +4,12 @@ An offline change-review prototype for IT teams comparing two CISA Known Exploit
 
 **Free prototype. No customers, paid service or demand validation claimed. Developed with AI assistance. Not affiliated with or endorsed by CISA.**
 
+## Try it and share workflow feedback
+
+Run the synthetic example below, or compare two saved public catalog snapshots. [Share workflow feedback](https://github.com/mceeomoba/apex-kev-change-desk/issues/1): what review task were you trying to finish, and did this remove a manual step? Feedback is public and exposes your GitHub identity. Do not include private asset inventories, client names, credentials or incident details. Posted for the Apex project; AI-assisted prototype and feedback collection. No paid pilot or response-time promise.
+
+Input limit: decimal and exponent-form JSON numbers are rejected, including in extension fields. Integer numbers are retained exactly. Future schemas are not guaranteed to work. Do not modify source values to bypass this limit.
+
 ## Run
 
 Python 3.10 or newer. Standard library only. No account or installation needed.
