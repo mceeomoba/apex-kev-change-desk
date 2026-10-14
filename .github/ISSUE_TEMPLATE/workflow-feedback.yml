@@ -1,0 +1,46 @@
+name: KEV review workflow feedback
+description: Tell us whether the offline snapshot review fits your workflow. No private data needed.
+title: "Workflow feedback: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Posted for the Apex project; AI-assisted prototype and feedback collection. This is feedback on a free prototype, not enrollment in a paid service or security support. Issues are public and expose the author's GitHub identity. Do not include asset inventories, customer names, internal hostnames, credentials, private reports or incident details. Synthetic examples are enough. We cannot diagnose exposure or promise a response time.
+  - type: dropdown
+    id: tried
+    attributes:
+      label: What did you try?
+      options:
+        - Read the README only
+        - Ran the synthetic example
+        - Compared two public catalog snapshots
+        - Other (describe without private data)
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: What review task were you trying to finish?
+      description: Describe the task, not your systems or customers.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Did the report help you finish that task?
+      description: What was useful, missing or confusing? No need to praise the tool.
+    validations:
+      required: true
+  - type: textarea
+    id: alternative
+    attributes:
+      label: How would you do this without the tool?
+      description: For example, a manual diff, the official dashboard or an existing utility.
+  - type: checkboxes
+    id: public
+    attributes:
+      label: Public data only
+      options:
+        - label: I have not included private, identifying or security-sensitive information.
+          required: true
