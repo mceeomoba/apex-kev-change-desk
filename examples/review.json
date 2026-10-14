@@ -136,6 +136,6 @@
     "Not a scanner, exposure assessment, patch verification or compliance decision.",
     "Removed means absent from the supplied after snapshot, not fixed or safe.",
     "CISA dueDate is preserved source data, not a universal deadline.",
-    "No changes does not mean no vulnerabilities. No background monitoring is active."
+    "A comparison with no changes is not proof that no vulnerabilities exist. This tool does not perform background monitoring."
   ]
 }
