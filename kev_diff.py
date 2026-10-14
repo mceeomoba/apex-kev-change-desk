@@ -151,12 +151,13 @@ def compare(before, after, before_hash=None, after_hash=None, vendors=()):
                          'Not a scanner, exposure assessment, patch verification or compliance decision.',
                          'Removed means absent from the supplied after snapshot, not fixed or safe.',
                          'CISA dueDate is preserved source data, not a universal deadline.',
-                         'No changes does not mean no vulnerabilities. No background monitoring is active.']}
+                         'A comparison with no changes is not proof that no vulnerabilities exist. This tool does not perform background monitoring.']}
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('before', help='Earlier official-format JSON snapshot')
     parser.add_argument('after', help='Later official-format JSON snapshot')
+    parser.add_argument('--format', choices=('json', 'markdown'), default='json', help='Output format; JSON by default')
     parser.add_argument('--vendor', action='append', default=[], help='Exact vendorProject, case-insensitive; repeatable')
     args = parser.parse_args(argv)
     try:
@@ -166,7 +167,12 @@ def main(argv=None):
         after, after_hash = load_catalog(args.after)
         report = compare(before, after, before_hash, after_hash, args.vendor)
         # Encode completely before writing stdout, so encoding errors do not emit a partial report.
-        encoded = (json.dumps(report, ensure_ascii=True, indent=2, allow_nan=False) + '\n').encode('utf-8')
+        if args.format == 'markdown':
+            from markdown_report import render_markdown
+            output = render_markdown(report)
+        else:
+            output = json.dumps(report, ensure_ascii=True, indent=2, allow_nan=False) + '\n'
+        encoded = output.encode('utf-8')
         sys.stdout.buffer.write(encoded)
         return 0
     except (OSError, UnicodeError, ValueError, RecursionError) as error:
