@@ -7,6 +7,7 @@ import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from kev_diff import compare, validate, load_catalog, InvalidCatalog
+from markdown_report import render_markdown, block
 ROOT=Path(__file__).resolve().parents[1]
 
 class ReviewTests(unittest.TestCase):
@@ -98,6 +99,29 @@ class ReviewTests(unittest.TestCase):
     def test_cli_error_no_stdout(self):
         r=subprocess.run([sys.executable,str(ROOT/'kev_diff.py'),'/missing','/missing'],capture_output=True)
         self.assertEqual(r.returncode,2);self.assertEqual(r.stdout,b'');self.assertIn(b'Input error',r.stderr)
+    def test_markdown_counts(self):
+        text=render_markdown(compare(self.a,self.b))
+        self.assertIn('Added: 1 | Changed: 1 | Removed: 1',text)
+        self.assertIn('CVE-2099-0001 (changed)',text)
+    def test_markdown_empty(self):
+        self.assertIn('No record changes matched',render_markdown(compare(self.a,self.a)))
+    def test_markdown_fence_injection(self):
+        value='```\n<img src=x onerror=alert(1)>\n``````'
+        text=block(value)
+        self.assertTrue(text.startswith('```````json\n'))
+        self.assertTrue(text.endswith('```````\n'))
+        self.assertEqual(json.loads(text.split('\n',1)[1].rsplit('\n',2)[0]),value)
+    def test_markdown_control_characters(self):
+        text=block('control\x1b[31m\rtext')
+        self.assertNotIn('\x1b',text);self.assertIn('\\u001b',text)
+    def test_markdown_full_records(self):
+        self.b['vulnerabilities'][0]['notes']='[link](https://example.invalid) <script>alert(1)</script>'
+        r=compare(self.a,self.b);text=render_markdown(r)
+        self.assertIn(json.dumps(r['changes'][0]['after'],sort_keys=True,indent=2).splitlines()[1].strip(),text)
+        self.assertEqual(text.count('### CVE-'),3)
+    def test_markdown_cli(self):
+        r=subprocess.run([sys.executable,str(ROOT/'kev_diff.py'),str(ROOT/'examples/before.json'),str(ROOT/'examples/after.json'),'--format','markdown'],capture_output=True)
+        self.assertEqual(r.returncode,0);self.assertTrue(r.stdout.startswith(b'# Apex KEV change review'))
     def test_cli_blank_filter(self):
         r=subprocess.run([sys.executable,str(ROOT/'kev_diff.py'),str(ROOT/'examples/before.json'),str(ROOT/'examples/after.json'),'--vendor',''],capture_output=True)
         self.assertEqual(r.returncode,2);self.assertEqual(r.stdout,b'')
