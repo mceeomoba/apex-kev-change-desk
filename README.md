@@ -56,7 +56,7 @@ All file processing is local. No network requests, telemetry, storage account, a
 
 ## Verification
 
-43 synthetic tests pass. On October 14, 2026, the prototype loaded the official mirror snapshot with catalogVersion `2026.10.13`, 1,741 entries and dateReleased `2026-10-13T19:10:43.6568Z`. Comparing that snapshot to itself returned zero record changes. This proves input compatibility with that one snapshot only, not authenticity, exposure, or correct handling of two successive real feeds. Its SHA-256 was `136904f12e4c6762e526352e3a67ed7b28cd21b4d82bed9c91719ff2e94f2f28`.
+v0.1.1 passes 45 synthetic tests; v0.1.0 included 43. On October 14, 2026, the prototype loaded the official mirror snapshot with catalogVersion `2026.10.13`, 1,741 entries and dateReleased `2026-10-13T19:10:43.6568Z`. Comparing that snapshot to itself returned zero record changes. This proves input compatibility with that one snapshot only, not authenticity, exposure, or correct handling of two successive real feeds. Its SHA-256 was `136904f12e4c6762e526352e3a67ed7b28cd21b4d82bed9c91719ff2e94f2f28`.
 
 ## Alternatives and business status
 
@@ -73,3 +73,9 @@ CISA already provides a free catalog. Its official repository README links an [i
 ## License
 
 Prototype source code: MIT, see LICENSE. No CISA logo, seal or endorsement is used.
+
+## Timestamp validation in v0.1.1
+
+v0.1.0 accepted malformed `dateReleased` offset components such as `+00:60`; v0.1.1 rejects them before comparison. No claim of vulnerability/exposure or altered valid-offset results. Offset hours must be 00-23 and minutes 00-59. `-00:00` normalizes to zero for ordering; the original timestamp string remains in the report. This is not a claim about the source's timezone knowledge.
+
+The v0.1.1 source includes 45 synthetic tests (v0.1.0 included 43). Checks are not an audit or proof of source authenticity, completeness, exposure or demand.
