@@ -41,6 +41,18 @@ class ReviewTests(unittest.TestCase):
     def test_timezone_equivalence(self):
         self.a['dateReleased']='2026-10-13T12:10:43.6568-07:00'
         self.b['dateReleased']='2026-10-13T19:10:43.6568Z';compare(self.a,self.b)
+    def test_invalid_timezone_offset(self):
+        for offset in ('+00:60', '-00:60', '+01:99', '-23:99', '+24:00', '-24:00'):
+            with self.subTest(offset=offset):
+                self.a['dateReleased']='2026-10-13T19:10:43'+offset
+                with self.assertRaises(InvalidCatalog):validate(self.a)
+    def test_invalid_timezone_cli_no_stdout(self):
+        self.a['dateReleased']='2026-10-13T19:10:43+00:60'
+        with tempfile.TemporaryDirectory() as t:
+            p=Path(t)/'invalid.json';p.write_text(json.dumps(self.a))
+            r=subprocess.run([sys.executable,str(ROOT/'kev_diff.py'),str(p),str(ROOT/'examples/after.json')],capture_output=True)
+            self.assertEqual(r.returncode,2);self.assertEqual(r.stdout,b'')
+            self.assertIn(b'timezone offset',r.stderr)
     def test_reversed(self):
         with self.assertRaises(InvalidCatalog): compare(self.b,self.a)
     def test_filter_exact(self): self.assertEqual(compare(self.a,self.b,vendors=['Example'])['changes'],[])
