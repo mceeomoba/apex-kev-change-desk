@@ -1,0 +1,141 @@
+{
+  "reportVersion": 1,
+  "sourceReference": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+  "sourceFetchedByTool": false,
+  "before": {
+    "catalogVersion": "synthetic-before",
+    "dateReleased": "2099-01-01T12:00:00Z",
+    "count": 2,
+    "sha256": "3cd9a266a749db0ff4e274243e517daabd5358e4fc4582c99d7970e09d2194b1"
+  },
+  "after": {
+    "catalogVersion": "synthetic-after",
+    "dateReleased": "2099-01-02T12:00:00Z",
+    "count": 2,
+    "sha256": "bc5b499ba4aeb27992f6bac3bf65c56b6d517f43e7c0ff581ee4f3b879d6d830"
+  },
+  "vendorFilter": [],
+  "filterMode": "exact case-insensitive, either snapshot",
+  "summary": {
+    "added": 1,
+    "changed": 1,
+    "removed": 1
+  },
+  "catalogMetadataChanges": [
+    {
+      "field": "catalogVersion",
+      "beforePresent": true,
+      "afterPresent": true,
+      "before": "synthetic-before",
+      "after": "synthetic-after"
+    },
+    {
+      "field": "dateReleased",
+      "beforePresent": true,
+      "afterPresent": true,
+      "before": "2099-01-01T12:00:00Z",
+      "after": "2099-01-02T12:00:00Z"
+    }
+  ],
+  "changes": [
+    {
+      "cveID": "CVE-2099-0001",
+      "kind": "changed",
+      "fields": [
+        {
+          "field": "dueDate",
+          "beforePresent": true,
+          "afterPresent": true,
+          "before": "2099-01-31",
+          "after": "2099-02-01"
+        },
+        {
+          "field": "extension",
+          "beforePresent": true,
+          "afterPresent": true,
+          "before": {
+            "label": "before"
+          },
+          "after": {
+            "label": "after"
+          }
+        }
+      ],
+      "before": {
+        "cveID": "CVE-2099-0001",
+        "vendorProject": "Example Vendor",
+        "product": "Synthetic Product",
+        "vulnerabilityName": "Synthetic example only",
+        "dateAdded": "2099-01-01",
+        "dueDate": "2099-01-31",
+        "shortDescription": "Not a real vulnerability",
+        "requiredAction": "Synthetic example only; no real action",
+        "notes": "",
+        "extension": {
+          "label": "before"
+        }
+      },
+      "after": {
+        "cveID": "CVE-2099-0001",
+        "vendorProject": "Example Vendor",
+        "product": "Synthetic Product",
+        "vulnerabilityName": "Synthetic example only",
+        "dateAdded": "2099-01-01",
+        "dueDate": "2099-02-01",
+        "shortDescription": "Not a real vulnerability",
+        "requiredAction": "Synthetic example only; no real action",
+        "notes": "",
+        "extension": {
+          "label": "after"
+        }
+      }
+    },
+    {
+      "cveID": "CVE-2099-0002",
+      "kind": "removed",
+      "fields": [],
+      "before": {
+        "cveID": "CVE-2099-0002",
+        "vendorProject": "Example Vendor",
+        "product": "Synthetic Product",
+        "vulnerabilityName": "Synthetic example only",
+        "dateAdded": "2099-01-01",
+        "dueDate": "2099-01-31",
+        "shortDescription": "Not a real vulnerability",
+        "requiredAction": "Synthetic example only; no real action",
+        "notes": "",
+        "extension": {
+          "label": "before"
+        }
+      },
+      "after": null
+    },
+    {
+      "cveID": "CVE-2099-0003",
+      "kind": "added",
+      "fields": [],
+      "before": null,
+      "after": {
+        "cveID": "CVE-2099-0003",
+        "vendorProject": "Example Vendor",
+        "product": "Synthetic Product",
+        "vulnerabilityName": "Synthetic example only",
+        "dateAdded": "2099-01-01",
+        "dueDate": "2099-01-31",
+        "shortDescription": "Not a real vulnerability",
+        "requiredAction": "Synthetic example only; no real action",
+        "notes": "",
+        "extension": {
+          "label": "before"
+        }
+      }
+    }
+  ],
+  "warnings": [
+    "User-supplied snapshots; their authenticity and completeness are not verified.",
+    "Not a scanner, exposure assessment, patch verification or compliance decision.",
+    "Removed means absent from the supplied after snapshot, not fixed or safe.",
+    "CISA dueDate is preserved source data, not a universal deadline.",
+    "No changes does not mean no vulnerabilities. No background monitoring is active."
+  ]
+}
