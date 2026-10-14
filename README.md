@@ -25,6 +25,12 @@ The example catalog is **synthetic**, not a current vulnerability feed. It shows
 
 For real data, download and retain successive JSON snapshots yourself from the [CISA catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) or its [official mirror](https://github.com/cisagov/kev-data). Check provenance and download dates. Pass the earlier snapshot first. This tool does not fetch sources, establish authenticity, tell whether a catalog is complete, or claim to be current. File SHA-256 values support reproducibility, not authentication.
 
+## Offline release check
+
+Run `python3 -B scripts/verify_release.py` from a checkout. It runs the bundled synthetic tests, compares JSON and Markdown examples with bundled expected outputs, and checks that invalid duplicate-key input emits no report. It fails if no tests are discovered. Exit 0 means these acceptance checks passed; exit 1 means failure. It prints a JSON summary and hashes of listed core/example and support files, without fetching data. Temporary invalid-input files are created and removed in the operating system's temporary directory; the bundled runner/tests do not intentionally edit the checkout; `-B` prevents normal bytecode writes.
+
+This executes Python code from the checkout, including its tests. Inspect and trust that code before running it. Passing checks and file hashes are not a security audit, software signing, source-authenticity proof, exposure assessment or evidence of customers. Do not redirect its output onto source or example files.
+
 ## Reading the output
 
 JSON is the default. `--format markdown` produces a human-readable review with counts, snapshot provenance, limits, metadata changes and each complete before/after record for matching changes. It does not add analysis or change the comparison. Source values stay in JSON code blocks; a dynamically sized fence prevents embedded backticks from escaping those blocks in ordinary Markdown renderers, not every viewer. Open the Markdown in a viewer you trust. Review reports before sharing: full before/after records for matching changes, metadata changes and vendor filters are included. Keep `markdown_report.py` alongside `kev_diff.py` for this optional format.
