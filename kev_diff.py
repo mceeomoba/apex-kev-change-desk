@@ -66,6 +66,8 @@ def release_time(value):
     match = re.fullmatch(r'(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:\.([0-9]+))?(Z|[+-]\d{2}:\d{2})', value)
     if not match:
         raise InvalidCatalog('dateReleased must be an ISO timestamp with timezone')
+    if match[3] != 'Z' and (int(match[3][1:3]) > 23 or int(match[3][4:6]) > 59):
+        raise InvalidCatalog('dateReleased timezone offset must have hours 00-23 and minutes 00-59')
     try:
         parsed = datetime.fromisoformat(match[1] + match[3].replace('Z', '+00:00'))
         seconds = parsed.toordinal() * 86400 + parsed.hour * 3600 + parsed.minute * 60 + parsed.second - int(parsed.utcoffset().total_seconds())
